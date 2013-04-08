@@ -1,0 +1,89 @@
+<!--<?php
+require_once template('head');
+echo <<<EOT
+-->
+<div class="index inner">
+	<div class="aboutus style-2">
+		<h3 class="title">
+			<span class='myCorner' data-corner='top 5px'>{$Column1[name]}</span>
+			<a href="{$Column1[url]}" class="more" title="{$met_atitle}">{$lang_more}</a>
+		</h3>
+		<div class="active editor clear contour-1">{$index[content]}<div class="clear"></div></div>
+	</div>	
+	<div class="index-news style-2" style="width:280px;margin-top:10px;margin-right:0px;margin-left:15px;">
+		<h3 class="title">
+			<span class='myCorner' data-corner='top 5px'>订单查询</span>
+		</h3>
+		<div class="active clear listel contour-2" style="height:225px;font-size:15px;width:262px">
+		  	<form style="height:220px">
+			<table>
+
+				  <tr style='width:260px'>
+                                   <td style="width:80px">条码号:</td>
+                                   <td><input type="text" id="txtOrderNo" name="OrderNo" /></td>
+                                </tr>
+
+			     <tr>
+				   <td>验证码:</td>
+				   <td><input type="text" id="txtVerifyCode" name="VerifyCode"/></td>
+				</tr>
+				<tr>
+					<td><button id="btnSearch" onclick="javascript:openSearch();">查询</button></td>
+					<td><input type="reset" value="重置"/></td>				
+				</tr>
+			</table>
+			</form>		
+		</div>
+	</div>	
+	<div class="clear"></div>
+	<div class="index-news style-2">
+		<h3 class="title">
+			<span class='myCorner' data-corner='top 5px'>{$Column3[name]}</span>
+			<a href="{$Column3[url]}" class="more" title="{$met_atitle}">{$lang_more}</a>
+		</h3>
+		<div class="active clear listel contour-2">{$index_list_1}</div>
+	</div>
+	<div class="index-news style-2">
+		<h3 class="title">
+			<span class='myCorner' data-corner='top 5px'>{$Column4[name]}</span>
+			<a href="{$Column4[url]}" class="more" title="{$met_atitle}">{$lang_more}</a>
+		</h3>
+		<div class="active clear listel contour-2">{$index_list_2}</div>
+	</div>
+	<div class="index-conts style-2">
+		<h3 class='title myCorner' data-corner='top 5px'>
+			{$Column5[name]}
+			<a href="{$Column5[url]}" title="{$met_atitle}" class="more">{$lang_more}</a>
+		</h3>
+		<div class="active clear listel contour-2">{$index_list_3}</div>
+	</div>
+	<div class="clear p-line"></div>
+
+	<script language="javascript">
+	function openSearch(){
+  	  var url='./orders/browse.php';
+          var code=$.trim($("#txtVerifyCode").val())
+          var no=$.trim($("#txtOrderNo").val())
+          url=url+"?VerifyCode="+code+"&OrderNo="+no;
+	  window.open(url);	
+	}
+	</script>
+	 
+<!--
+EOT;
+if($index_link_ok){
+echo <<<EOT
+-->
+	 
+
+<!--
+EOT;
+}
+echo <<<EOT
+-->
+</div>
+<!--
+EOT;
+require_once template('foot');
+?>
+

@@ -1,0 +1,64 @@
+<!--<?php
+require_once template('head');
+echo <<<EOT
+-->
+<div class="index inner">
+	<div class="aboutus style-2" style="width:990px;margin-top:10px;margin-right:0px;">
+		<h3 class="title">
+			<span class='myCorner' data-corner='top 5px'>订单查询</span>
+		</h3>
+		<div class="active clear listel contour-2" style="height:225px">
+		  	<form style="height:220px">
+			<table>
+			     <tr>
+				   <td>验证码:</td>
+				   <td><input type="text" id="txtVerifyCode" name="VerifyCode"/></td>
+				</tr>
+				<tr>
+				   <td>订单号:</td>
+				   <td><input type="text" id="txtOrderNo" name="OrderNo"/></td>
+				</tr>
+				<tr>
+					<td><button id="btnSearch" onclick="javascript:openSearch();">查询</button></td>
+					<td><input type="reset" value="重置"/></td>				
+				</tr>
+			</table>
+			</form>		
+		</div>
+	</div>	
+	 
+	<div class="clear p-line"></div>
+
+	<script language="javascript">
+	function openSearch(){
+  	  var url='./orders/browse.php';
+          var code=$.trim($("#txtVerifyCode").val())
+          var no=$.trim($("#txtOrderNo").val())
+          url=url+"?VerifyCode="+code+"&OrderNo="+no;
+	  window.open(url);	
+	}
+	$(document).ready(function(){
+	   $(".met_flash").hide();
+	   $("nav").find(".navdown").removeClass("navdown");
+	   $("nav").find("#nav_73").addClass("navdown");
+	});
+	</script>
+	 
+<!--
+EOT;
+if($index_link_ok){
+echo <<<EOT
+-->
+	 
+
+<!--
+EOT;
+}
+echo <<<EOT
+-->
+</div>
+<!--
+EOT;
+require_once template('foot');
+?>
+
