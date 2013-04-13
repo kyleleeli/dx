@@ -48,7 +48,7 @@
     'content' => '<p>
 	&nbsp;</p>
 <div>
-	<img alt="" src="http://42.121.107.124/upload/images/20120716_094159.jpg" style="margin: 8px; width: 196px; float: left; height: 209px;" /></div>
+	<img alt="" src="http://localhost/gx/upload/images/20120716_094159.jpg" style="margin: 8px; width: 196px; float: left; height: 209px;" /></div>
 <div style="padding-top: 10px;">
 	<div style="color: rgb(51, 51, 51); font-size: 10.909090995788574px; -webkit-text-size-adjust: none; padding-top: 10px;">
 		<span style="font-size: 14px;"><strong>关于深圳大喜之星物流公司</strong></span></div>
@@ -180,21 +180,17 @@
     'content' => '<div>
 	<strong style="color: rgb(51, 51, 51); font-size: 12.727272033691406px; line-height: 25.454544067382813px; -webkit-text-size-adjust: none;">深圳大喜之星物流公司</strong></div>
 <div>
-	地址：<span style="color: rgb(0, 0, 0); font-family: \'lucida Grande\', Verdana; line-height: 20px;">深圳市龙岗区南湾街道大龙山物流园G栋二楼13-15号</span></div>
+	地址：XX市XX区XXX号XXX栋XXX房</div>
 <div>
-	电话：<span style="color: rgb(0, 0, 0); font-family: \'lucida Grande\', Verdana; line-height: 20px;">0755-89532280 &nbsp;</span></div>
+	电话：0000-888888 13300000000</div>
 <div>
-	<span style="color: rgb(0, 0, 0); font-family: \'lucida Grande\', Verdana; line-height: 20px;">大宗来电：13808859711</span></div>
+	Q &nbsp;Q：000000 &nbsp;000000 &nbsp;000000</div>
 <div>
-	Q &nbsp;Q：<span style="color: rgb(0, 0, 0); font-family: \'lucida Grande\', Verdana; line-height: 20px;">1661597760</span></div>
+	邮编：000000</div>
 <div>
-	邮编：<span style="color: rgb(0, 0, 0); font-family: \'lucida Grande\', Verdana; line-height: 20px;">518112</span></div>
+	邮箱：admin@admin.cn</div>
 <div>
-	邮箱：13808859711@139.com</div>
-<div>
-	网址：<span style="color: rgb(0, 0, 0); font-family: \'lucida Grande\', Verdana; line-height: 20px;">www.sz-dxzx.com</span></div>
-<div>
-	&nbsp;</div>
+	网址：www.000000.cn</div>
 ',
     'description' => '',
     'list_order' => '0',
@@ -274,7 +270,7 @@
   array (
     'id' => '73',
     'name' => '订单管理',
-    'foldername' => 'http://42.121.107.124/orders',
+    'foldername' => 'http://localhost/dx/orders',
     'filename' => NULL,
     'bigclass' => '0',
     'samefile' => '0',
@@ -290,7 +286,7 @@
     'list_order' => '0',
     'new_windows' => '0',
     'classtype' => '1',
-    'out_url' => 'http://42.121.107.124/orders',
+    'out_url' => 'http://localhost/dx/orders',
     'index_num' => '0',
     'access' => '0',
     'indeximg' => '',

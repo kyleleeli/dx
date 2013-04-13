@@ -1,0 +1,4 @@
+ALTER TABLE  `dx_detail` ADD  `create_by` VARCHAR( 200 ) NULL;
+ALTER TABLE  `dx_detail` ADD  `update_by` VARCHAR( 200 ) NULL;
+ALTER TABLE  `dx_detail` ADD  `remark` VARCHAR( 4000 ) NULL;
+ALTER TABLE  `dx_detail` ADD  `is_locked_by_admin` INT NOT NULL DEFAULT  '0' FIRST;

@@ -141,7 +141,7 @@ if($_SERVER['REQUEST_METHOD']=='POST') {
 		$Region,$Region,
 		$OrderNo, $OrderNo);
 
-	//echo $sql;
+	echo $sql;
 }elseif($_SERVER['REQUEST_METHOD']=='GET'){
 	 $sql="SELECT * FROM  dx_detail where order_no='%s'
   	 order by create_date desc";

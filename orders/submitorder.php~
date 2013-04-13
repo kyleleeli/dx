@@ -113,7 +113,7 @@ if($_SERVER['REQUEST_METHOD']=='POST') {
 			}
 		}	
  		mysql_query("COMMIT");
-		mysql_query("CLOSE");
+		mysql_query("CLOSE");*/
 	}elseif($action == "edit"){	
 		$query = sprintf($update_sql, mysql_real_escape_string($_POST['Region']),
 					mysql_real_escape_string($_POST['SendBy']),
