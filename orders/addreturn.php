@@ -20,31 +20,21 @@
 	require_once './header.php';	
 ?>
 <div class="boxcontent">
-	<form method="POST" action="submitorder.php?action=addbyrows">
+	<form method="POST" action="submitreturn.php?action=addbyrows">
 		<table style="width:80%" class="detail">
 			<thead>
-				<tr><td colspan="20">录入订单信息 <input type="button" value="提交"  id="btnSubmit"/> <input type="button" value="新增一行" style="width:100px" id="btnAddRow"/>  <input type="button"  id="btnDelRow" value="删除选择行" style="width:100px"/> </td>
+				<tr><td colspan="20">录入退货信息 <input type="button" value="提交"  id="btnSubmit"/> <input type="button" value="新增一行" style="width:100px" id="btnAddRow"/>  <input type="button"  id="btnDelRow" value="删除选择行" style="width:100px"/> </td>
 										
 				</tr>
 				<tr>
 					<td>选择</td>
 					<td>日期</td>
-					<td>条码单号</td>
-				 	<td>区域</td>
-					<td>派货人</td>
+					<td>退货人</td>
 					<td>数量</td>
-					<td>运费</td>
-				 	<td>已付</td>
-					<td>付款人</td>
-			  		<td>验证码</td>
-					<td>收款人</td>
-			 		<td>帐号名</td>
-					<td>代收货款</td>
-			 		<td>减货款</td>
-					<td>手续费</td>
-	 				<td>实际转账</td>
-					<td>转帐日期</td>
-	 				<td>收款日期</td>
+					<td>单号</td>
+				 	<td>退货费</td>
+					<td>区域</td>
+					<td>所在仓库</td>					
 					<td>备注</td>
 				</tr>
 			</thead>			
@@ -72,22 +62,12 @@
 					</select>月
 					<input type="text" id="txtDay_1" value="<?echo $cur_day?>"  style="width:20px" name="Day_1"/>日
 					</td>
-					<td><input type="text" id="txtOrderNo_1" name="OrderNo_1" style="width:70px" data-valid-name="OrderNo"/></td>
-					<td><input type="text" id="txtRegion_1" name="Region_1"/></td>
-					<td><input type="text" id="txtSendBy_1" name="SendBy_1"/></td>
+					<td><input type="text" id="txtReturnBy_1" name="ReturnBy_1"/></td>
 					<td><input type="text" id="txtCount_1" name="Count_1"/></td>
-					<td><input type="text" id="txtFare_1" name="Fare_1"/></td>
-					<td><input type="text" id="txtPayedAmount_1" name="PayedAmount_1"/></td>
-					<td><input type="text" id="txtPayedBy_1" name="PayedBy_1" style="width:70px" /></td>
-					<td><input type="text" id="txtVerifyCode_1" name="VerifyCode_1"/></td>
-					<td><input type="text" id="txtReceiptName_1" name="ReceiptName_1" style="width:70px"/></td>
-					<td><input type="text" id="txtReceiptAccountName_1" name="ReceiptAccountName_1"/></td>
-					<td><input type="text" id="txtPaymentCollection_1" name="PaymentCollection_1"/></td>
-					<td><input type="text" id="txtPaymentMinus_1" name="PaymentMinus_1"/></td>
-					<td><input type="text" id="txtFee_1" name="Fee_1"/></td>
-					<td><input type="text" id="txtIndeedTransferAmount_1" name="IndeedTransferAmount_1"/></td>
-					<td><input type="text" id="txtTransferDate_1" name="TransferDate_1"/></td>
-					<td><input type="text" id="txtSendDate_1" name="SendDate_1"/></td>
+					<td><input type="text" id="txtOrderNo_1" name="OrderNo_1" style="width:70px" data-valid-name="OrderNo"/></td>
+					<td><input type="text" id="txtReturnFee" name="ReturnFee_1"/></td>
+					<td><input type="text" id="txtRegion_1" name="Region_1"/></td>
+					<td><input type="text" id="txtWarehouse_1" name="Warehouse_1" style="width:70px" /></td>
 					<td><input type="text" id="txtRemark_1" name="Remark_1" style="width:200px"/></td>
 				</tr>
 			</tbody>
@@ -141,11 +121,11 @@
 			if(validation()){
 				$.ajax({
 				  type: "POST",
-				  url: "submitorder.php?action=addbyrows",
+				  url: "submitreturn.php?action=addbyrows",
 				  data:$("form").serialize(),
 				  success: function(s){
 				  	alert("提交成功！");
-					window.location.href="orderlist.php";
+					window.location.href="returnlist.php";
 				  },
 				 error:function(err){
 					alert("提交失败！");

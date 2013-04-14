@@ -28,6 +28,10 @@ function isAdmin($member_name)
 
 <a href="orderlist.php">订单查询</a>
 
+<a href="addreturn.php">添加退货</a>
+
+<a href="returnlist.php">退货查询</a>
+
 当前帐号:<?echo $metinfo_member_name?> <a href="../member/login_out.php">退出</a>
 <hr/>
 

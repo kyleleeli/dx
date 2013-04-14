@@ -1,3 +1,4 @@
+ALTER TABLE  `dx_detail` ENGINE = INNODB;
 ALTER TABLE  `dx_detail` ADD  `create_by` VARCHAR( 200 ) NULL;
 ALTER TABLE  `dx_detail` ADD  `update_by` VARCHAR( 200 ) NULL;
 ALTER TABLE  `dx_detail` ADD  `remark` VARCHAR( 4000 ) NULL;
