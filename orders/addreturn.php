@@ -62,12 +62,12 @@
 					</select>月
 					<input type="text" id="txtDay_1" value="<?echo $cur_day?>"  style="width:20px" name="Day_1"/>日
 					</td>
-					<td><input type="text" id="txtReturnBy_1" name="ReturnBy_1"/></td>
-					<td><input type="text" id="txtCount_1" name="Count_1"/></td>
-					<td><input type="text" id="txtOrderNo_1" name="OrderNo_1" style="width:70px" data-valid-name="OrderNo"/></td>
-					<td><input type="text" id="txtReturnFee" name="ReturnFee_1"/></td>
-					<td><input type="text" id="txtRegion_1" name="Region_1"/></td>
-					<td><input type="text" id="txtWarehouse_1" name="Warehouse_1" style="width:70px" /></td>
+					<td><input type="text" id="txtReturnBy_1" name="ReturnBy_1" style="width:100px"/></td>
+					<td><input type="text" id="txtCount_1" name="Count_1" style="width:100px"/></td>
+					<td><input type="text" id="txtOrderNo_1" name="OrderNo_1" style="width:100px" data-valid-name="OrderNo"/></td>
+					<td><input type="text" id="txtReturnFee" name="ReturnFee_1" style="width:100px"/></td>
+					<td><input type="text" id="txtRegion_1" name="Region_1" style="width:100px"/></td>
+					<td><input type="text" id="txtWarehouse_1" name="Warehouse_1" style="width:100px" /></td>
 					<td><input type="text" id="txtRemark_1" name="Remark_1" style="width:200px"/></td>
 				</tr>
 			</tbody>
