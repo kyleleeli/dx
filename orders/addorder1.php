@@ -42,9 +42,9 @@
 					<td>代收货款</td>
 			 		<td>减货款</td>
 					<td>手续费</td>
-	 				<td>实际转账</td>
+	 				<!--<td>实际转账</td>
 					<td>转帐日期</td>
-	 				<td>收款日期</td>
+	 				<td>收款日期</td>-->
 					<td>备注</td>
 				</tr>
 			</thead>			
@@ -75,19 +75,19 @@
 					<td><input type="text" id="txtOrderNo_1" name="OrderNo_1" style="width:70px" data-valid-name="OrderNo"/></td>
 					<td><input type="text" id="txtRegion_1" name="Region_1"/></td>
 					<td><input type="text" id="txtSendBy_1" name="SendBy_1"/></td>
-					<td><input type="text" id="txtCount_1" name="Count_1"/></td>
+					<td><input type="text" id="txtCount_1" name="Count_1" style="width:100px"/></td>
 					<td><input type="text" id="txtFare_1" name="Fare_1"/></td>
 					<td><input type="text" id="txtPayedAmount_1" name="PayedAmount_1"/></td>
 					<td><input type="text" id="txtPayedBy_1" name="PayedBy_1" style="width:70px" /></td>
-					<td><input type="text" id="txtVerifyCode_1" name="VerifyCode_1"/></td>
-					<td><input type="text" id="txtReceiptName_1" name="ReceiptName_1" style="width:70px"/></td>
+					<td><input type="text" id="txtVerifyCode_1" name="VerifyCode_1" data-valid-name="VerifyCode"/></td>
+					<td><input type="text" id="txtReceiptName_1" name="ReceiptName_1" style="width:70px" data-valid-name="ReceiptName"/></td>
 					<td><input type="text" id="txtReceiptAccountName_1" name="ReceiptAccountName_1"/></td>
 					<td><input type="text" id="txtPaymentCollection_1" name="PaymentCollection_1"/></td>
 					<td><input type="text" id="txtPaymentMinus_1" name="PaymentMinus_1"/></td>
 					<td><input type="text" id="txtFee_1" name="Fee_1"/></td>
-					<td><input type="text" id="txtIndeedTransferAmount_1" name="IndeedTransferAmount_1"/></td>
+					<!--<td><input type="text" id="txtIndeedTransferAmount_1" name="IndeedTransferAmount_1"/></td>
 					<td><input type="text" id="txtTransferDate_1" name="TransferDate_1"/></td>
-					<td><input type="text" id="txtSendDate_1" name="SendDate_1"/></td>
+					<td><input type="text" id="txtSendDate_1" name="SendDate_1"/></td>-->
 					<td><input type="text" id="txtRemark_1" name="Remark_1" style="width:200px"/></td>
 				</tr>
 			</tbody>
@@ -97,11 +97,10 @@
 </div>
 </body>
 </html>
-<script src="jquery-1.8.3.js"></script>
 <script language="javascript">
 	var trTemplate=$("#tbInput tr").first().clone();
 	var tbInput=$("#tbInput")
-	function refreshIdAndName(){
+	function refreshIdAndNameAndBindEvents(){
 		var trS=tbInput.find("tr");
 		trS.each(function(i,t){
 			var tr=$(this);
@@ -115,18 +114,27 @@
 				var id=idPrefix+"_"+index;
 				e.attr("id",id);
 				e.attr("name",name);
-			})
+			});
+			var receiptName_input_name="ReceiptName_"+index;
+			var verifyCode_input_name="VerifyCode_"+index;
+			tr.find("input[name='"+receiptName_input_name+"']").focusout(function(){
+				getCustomerInfo($(this),"ReceiptName")
+			});
+			tr.find("input[name='"+verifyCode_input_name+"']").focusout(function(){
+				getCustomerInfo($(this),"VerifyCode")
+			});
 					
 		});
 		$("#txtRowCount").val(trS.length);		
 	}
-	$(document).ready(function(){		
+	$(document).ready(function(){
+	refreshIdAndNameAndBindEvents();		
 		$("#btnAddRow").click(function(){
 			var rowCount=tbInput.find("tr").length;
 			var index=rowCount+1;
 			var tr=$(trTemplate).clone();
 			tbInput.append(tr);
-			refreshIdAndName()
+			refreshIdAndNameAndBindEvents()
 		});
 		$("#btnDelRow").click(function(){
 			var trS=getCheckedRows();
@@ -181,8 +189,78 @@
 		});
 		if(!flag){
 			alert("条形单号不能为空！");
+			return flag;
 		}
-		return flag;	
+	
+		$("input[data-valid-name='ReceiptName']").each(function(i,e){
+			var t=$(this)
+			t.parent().parent().removeClass("error");						
+			if($.trim(t.val())===''){
+				flag=false;
+				t.parent().parent().addClass("error")		
+			}
+		});
+		if(!flag){
+			alert("收款人不能为空！");
+			return flag;
+		}
+		$("input[data-valid-name='VerifyCode']").each(function(i,e){
+			var t=$(this)
+			t.parent().parent().removeClass("error");						
+			if($.trim(t.val())===''){
+				flag=false;
+				t.parent().parent().addClass("error")		
+			}
+		});
+		if(!flag){
+			alert("验证码不能为空！");
+			return flag;
+		}
+		return flag;
+
+			
+	}
+
+	function getCustomerInfo(target,getBy){
+		var inputVal=target.val();
+		if(inputVal!==''){
+			var url="ajaxgetcustomer.php?";
+			if(getBy==='ReceiptName'){
+				url=url+"GetBy=ReceiptName"+"&ReceiptName="+inputVal;
+			}else{
+				url=url+"GetBy=VerifyCode"+"&VerifyCode="+inputVal;
+			}
+			$.ajax({
+				type:"GET",
+				url:url,
+				success:function(resp){
+					var arr=resp.split("^");
+					var flag=arr[0];
+					var verifyCode=arr[1];
+					var receiptName=arr[2];
+					var accountName=arr[3];
+					var row=target.parent().parent();
+					if(flag==="0"){
+						alert("对应的客户信息不存在");
+						row.find("input[name^='ReceiptName_']").val(receiptName);	
+						row.find("input[name^='ReceiptAccountName_']").val(accountName);
+						row.find("input[name^='VerifyCode_']").val(verifyCode);
+					}else{
+						row.find("input[name^='ReceiptName_']").val(receiptName);	
+						row.find("input[name^='ReceiptAccountName_']").val(accountName);
+						row.find("input[name^='VerifyCode_']").val(verifyCode);
+					}
+				
+				},
+				error:function(err){
+					alert("对应的客户信息不存在");
+					var row=target.parent().parent();
+					row.find("input[name^='ReceiptName_']").val("");	
+					row.find("input[name^='ReceiptAccountName_']").val("");
+					row.find("input[name^='VerifyCode_']").val("");
+				}
+			});
+		}
 	}
 </script>
 

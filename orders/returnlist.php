@@ -24,9 +24,51 @@
 	     }
 	 }
 	}
- ?>
+require_once '../include/common.inc.php';
+require_once '../member/login_check.php';
+if($_SERVER['REQUEST_METHOD']=='POST') {
+   $sql="SELECT * FROM  dx_returns where
+	  (year=%d or '%s' ='')
+	 and (month=%d or '%s' ='')
+	 and (day=%d or '%s' ='')
+     and (region='%s' or '%s' ='')
+     and (order_no='%s' or '%s' ='')
+  order by create_date desc";
+
+     $sumsql="SELECT sum(return_fee) as sum_return_fee FROM  dx_returns where
+	  (year=%d or '%s' ='')
+	 and (month=%d or '%s' ='')
+	 and (day=%d or '%s' ='')
+     and (region='%s' or '%s' ='')
+     and (order_no='%s' or '%s' ='')
+  order by create_date desc";
+	
+  $sql=sprintf($sql,
+		$Year,$Year,
+		$Month, $Month,
+		$Day,$Day,
+		$Region,$Region,
+		$OrderNo, $OrderNo);
+
+   $sumsql=sprintf($sumsql,
+		$Year,$Year,
+		$Month, $Month,
+		$Day,$Day,
+		$Region,$Region,
+		$OrderNo, $OrderNo);
+
+	//echo $sql;
+}elseif($_SERVER['REQUEST_METHOD']=='GET'){
+	 $sql="SELECT * FROM  dx_returns where order_no='%s'
+  	 order by create_date desc";
+	 $sumsql="SELECT * FROM  dx_returns where order_no='%s'
+  	 order by create_date desc";
+	 $sql=sprintf($sql,$OrderNo);
+	 $sumsql=sprintf($sumsql,$OrderNo);
+}
+?>
 <div>
-<h1>客户帐号信息</h1>
+<h1>退货信息</h1>
 <form action="returnlist.php" method="POST" >
 <table>
 	<tr>
@@ -56,13 +98,26 @@
 			<td>
 				<input type="text" id="txtRegion" value="<? echo $Region?>" name="Region"/>				
 			</td>
-			<td><input type="submit" value="查询"/></td>
+			<td>
+				<input type="submit" value="查询"/>
+				<button id="btnPrint" onclick="javascript:openPrintWin()">打印</button>
+			</td>
 	</tr>
 </table>
 </form>
 </div>
-
 <div class="boxcontent">
+<?
+	mysql_query("SET NAMES UTF8"); 
+	$sumresult=mysql_query($sumsql);
+	$sum_return_fee="";
+	echo "<div>";
+	if($sumrow=mysql_fetch_array($sumresult)){
+		$sum_return_fee=$sumrow[sum_return_fee];
+	}
+	echo "总退货费:".$sum_return_fee;
+	echo "</div>";
+?>
 <table class="detail" style="width:800px">
 	<thead>
 		<tr>
@@ -84,32 +139,7 @@
 	<tbody>
 
 
-<?php 
-require_once '../include/common.inc.php';
-require_once '../member/login_check.php';
-if($_SERVER['REQUEST_METHOD']=='POST') {
-   $sql="SELECT * FROM  dx_returns where
-	  (year=%d or '%s' ='')
-	 and (month=%d or '%s' ='')
-	 and (day=%d or '%s' ='')
-     and (region='%s' or '%s' ='')
-     and (order_no='%s' or '%s' ='')
-  order by create_date desc";
-	
-  $sql=sprintf($sql,
-		$Year,$Year,
-		$Month, $Month,
-		$Day,$Day,
-		$Region,$Region,
-		$OrderNo, $OrderNo);
-
-	//echo $sql;
-}elseif($_SERVER['REQUEST_METHOD']=='GET'){
-	 $sql="SELECT * FROM  dx_returns where order_no='%s'
-  	 order by create_date desc";
-	 $sql=sprintf($sql,$OrderNo);
-}
-	//echo $sql;
+<?	//echo $sql;
 	mysql_query("SET NAMES UTF8"); 
 	$result=mysql_query($sql);
 	while($row=mysql_fetch_array($result)){
@@ -147,6 +177,14 @@ function deleteReturn(orderNo){
 }
 function editReturn(orderNo){
 	window.location.href="editreturn.php?orderno="+orderNo;	
+}
+function getPrintHtml() {
+	return $(".boxcontent").html();
+}
+function openPrintWin(){
+	var h = $(window).height(); 
+	var w = $(window).width(); 
+	window.open("printreturnlist.php","",'toolbar=no ,location=0, status=no, titlebar=no, menubar=no width=+'+w+", height="+h);
 }
 </script>
 

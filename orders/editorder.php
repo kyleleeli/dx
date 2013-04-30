@@ -7,6 +7,13 @@
 <form method="POST" action="submitorder.php?action=edit">
 <?php
 	require_once './header.php';
+
+function isTodayRow($r){
+		$y=$r[year];
+		$m=$r[month];
+		$d=$r[day];
+		return $y==$cur_year&&$m==$cur_mon&&$d==$cur_day; 
+	}
 	$orderno=mysql_real_escape_string($_GET['orderno']);
 	$sql="SELECT * FROM  dx_detail where order_no='%s' order by create_date desc";
 	$query = sprintf($sql, $orderno);
@@ -15,8 +22,8 @@
 	mysql_query("CLOSE");
 	$row=mysql_fetch_array($result);
 	if(!isAdmin($metinfo_member_name)){
-		if($row[is_locked_by_admin]==1){
-			echo "该订单已被管理员锁定，不能编辑！";
+		if($row[is_locked_by_admin]==1||(!isTodayRow($row))){
+			echo "该订单已被锁定，不能编辑！";
 				return;			
 			}
 	}
@@ -88,16 +95,20 @@
 				<td><input type="text" id="txtFee" name="Fee" value="<? echo $row[fee] ?>"/></td>
 			
 			<tr>
-				<td>实际转账：</td>
-				<td><input type="text" id="txtIndeedTransferAmount" name="IndeedTransferAmount" value="<? echo $row[indeed_transfer_amount] ?>"/></td>
-				<td>转账日期：</td>
-				<td><input type="text" id="txtTransferDate" name="TransferDate" value="<? echo $row[transfer_date] ?>"/></td>
-
-			</tr>
+			<?if(isAdmin($metinfo_member_name)){		
+				echo'<td>实际转账：</td>
+				<td><input type="text" id="txtIndeedTransferAmount" name="IndeedTransferAmount" value="'.$row[indeed_transfer_amount].'"/></td>
+			
+			    <td>转账日期：</td>
+				<td><input type="text" id="txtTransferDate" name="TransferDate" value="'.$row[transfer_date].'"/></td>';
+			}?>
 			</tr>
 			<tr>
-				<td>收款日期：</td>
-				<td><input type="text" id="txtSendDate" name="SendDate" value="<? echo $row[send_date] ?>"/></td>
+			<?if(isAdmin($metinfo_member_name))
+				echo'<td>收款日期：</td>
+				<td><input type="text" id="txtSendDate" name="SendDate" value="'.$row[send_date].'"/></td>';
+			?>
+
 				<td>备注：</td>
 				<td><input type="text" id="txtRemark" name="Remark" value="<? echo $row[remark] ?>"/></td>
 			
@@ -111,4 +122,20 @@
 </form>
 </body>
 </html>
+<script language="javascript">
+$(document).ready(function(){
+	var txtTransfferDateInput=$("#txtTransferDate");
+	var txtSendDateInput=$("#txtSendDate");
+	if(txtTransfferDateInput.length>0){
+			txtTransfferDateInput.datepicker({
+            dateformat: "yy/mm/dd"
+        });
+	}
+	if(txtSendDateInput.length>0){
+		txtSendDateInput.datepicker({
+			dateformat:"yy/mm/dd"
+		});
+	}		
+});
+</script>
 

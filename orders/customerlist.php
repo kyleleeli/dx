@@ -14,23 +14,27 @@
 	</head>
 <body>
 <?php 
-require_once './header.php';
-	   $VerifyCode="";
-	   $ReceiptName="";
-	   $ReceiptAccountName="";
+	require_once './header.php';
+	if(!isAdmin($metinfo_member_name)){
+		echo "没有权限进行此操作";
+		return;
+	}
+	$VerifyCode="";
+	$ReceiptName="";
+	$ReceiptAccountName="";
 	if($_SERVER['REQUEST_METHOD']=='POST') {
 	   $VerifyCode=mysql_real_escape_string($_POST["VerifyCode"]);
 	   $ReceiptName=mysql_real_escape_string($_POST["ReceiptName"]);
 	   $ReceiptAccountName=mysql_real_escape_string($_POST["ReceiptAccountName"]);
- 	}
+		}
 	if($_SERVER['REQUEST_METHOD']=='GET') {
-	if(is_array($_GET)&&count($_GET)>0)//先判断是否通过get传值了
-   	 {
-	     if(isset($_GET["VerifyCode"]))//是否存在"OrderNo"的参数
-	     {
-		$VerifyCode=mysql_real_escape_string($_GET["VerifyCode"]);
-	     }
-	 }
+		if(is_array($_GET)&&count($_GET)>0)//先判断是否通过get传值了
+		 {
+		     if(isset($_GET["VerifyCode"]))//是否存在"OrderNo"的参数
+		     {
+				$VerifyCode=mysql_real_escape_string($_GET["VerifyCode"]);
+		     }
+		 }
 	}
 ?>
 <div>

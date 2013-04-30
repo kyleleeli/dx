@@ -4,7 +4,12 @@
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 	</head>
 <body>
-<?require_once './header.php';?>
+<?require_once './header.php';
+if(!isAdmin($metinfo_member_name)){
+	echo "没有权限进行此操作";
+	return;
+}
+?>
 <form method="POST" action="submitcustomer.php?action=add">
 	<table style="width:80%">
 		<tbody>

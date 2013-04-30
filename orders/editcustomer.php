@@ -10,8 +10,9 @@
 	$query = sprintf($sql, $verifycode);
 	mysql_query("SET NAMES UTF8"); 	        
 	$result=mysql_query($query);
-	$row=mysql_fetch_array($result)
+	$row=mysql_fetch_array($result);
 ?>
+
 <form method="POST" action="submitcustomer.php?action=edit">
 	<table style="width:80%">
 		<tbody>
