@@ -1,2 +1,2 @@
-gx
+gx test
 ==
